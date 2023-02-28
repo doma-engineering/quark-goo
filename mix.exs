@@ -3,17 +3,17 @@ defmodule Quark.Mixfile do
 
   def project do
     [
-      app:  :quark,
+      app:  :quark_goo,
       name: "Quark",
 
       description: "Common combinators for Elixir",
-      version: "2.3.2",
+      version: "2.21.0",
       elixir:  "~> 1.11",
 
       package: [
-        maintainers: ["Brooklyn Zelenka"],
+        maintainers: ["doma.dev"],
         licenses:    ["MIT"],
-        links:       %{"GitHub" => "https://github.com/expede/quark"}
+        links:       %{"GitHub" => "https://github.com/doma-engineering/quark-goo"}
       ],
 
       source_url:   "https://github.com/expede/quark",

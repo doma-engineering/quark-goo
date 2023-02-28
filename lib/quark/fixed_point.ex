@@ -29,7 +29,7 @@ defmodule Quark.FixedPoint do
   import Quark.Partial
   import Quark.Curry, only: [curry: 1]
 
-  defdelegate fix(),  to: __MODULE__, as: :y
+  defdelegate fix(), to: __MODULE__, as: :y
   defdelegate fix(a), to: __MODULE__, as: :y
 
   @doc ~S"""
@@ -74,12 +74,14 @@ defmodule Quark.FixedPoint do
 
   """
   @spec turing(fun) :: fun
-  defpartial turing(fun), do: turing_inner().(turing_inner()).(fun)
+  defpartial turing(fun) do
+    turing_inner(fn x -> turing_inner(x) end, fun)
+  end
 
   defpartialp turing_inner(x, y) do
     cx = curry(x)
     cy = curry(y)
-    cy.(&(cx.(cx).(cy).(&1)))
+    cy.(&cx.(cx).(cy).(&1))
   end
 
   @doc ~S"""
@@ -101,5 +103,5 @@ defmodule Quark.FixedPoint do
 
   """
   @spec z(fun, any) :: fun
-  defpartial z(g, v), do: g.(z(g)).(v)
+  defpartial(z(g, v), do: g.(z(g)).(v))
 end
